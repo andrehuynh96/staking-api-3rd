@@ -21,6 +21,11 @@ route.post("/voting",
  *       - Voting
  *     description: Voting
  *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         type: string
+ *         required: true
+ *         description: Bearer {token}
  *       - in: body
  *         name: data
  *         description: Data for login.
