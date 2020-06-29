@@ -39,11 +39,7 @@ const config = {
   },
   rateLimit: process.env.RATE_LIMIT ? parseInt(process.env.RATE_LIMIT) : 100,
   stakingApi: {
-    url: process.env.STAKING_API_URL,
-    key: process.env.STAKING_API_KEY,
-    secret: process.env.STAKING_API_SECRET,
-    jwksUrl: process.env.STAKING_API_JWK_URL,
-    kid: process.env.STAKING_API_KID,
+    url: process.env.STAKING_API_URL
   },
 };
 
