@@ -25,9 +25,9 @@ deploy_development:
     name: development
     url: https://dev-staking-3rd-api.chainservices.info/
   only:
-  - develop
+    - develop
   tags:
-  - infinito-staking-group
+    - infinito-staking-group
   
 deploy_staging:
   stage: deploy
@@ -37,7 +37,7 @@ deploy_staging:
     name: staging
     url: https://staging-staking-3rd-api.chainservices.info/
   only:
-  - master
+    - master
 
 deploy_prod:
   stage: deploy
@@ -48,6 +48,6 @@ deploy_prod:
     url: https://example.com
   when: manual
   only:
-  - master
+    - master
 
 
