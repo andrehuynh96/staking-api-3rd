@@ -1,0 +1,55 @@
+variables:
+  WORK_DIR: ${CI_PROJECT_NAME}
+  BRANCH: ${CI_COMMIT_REF_NAME}
+
+stages:
+  - test
+  - build
+  - deploy
+
+verbose:
+  variables:
+    CI_DEBUG_TRACE: ${VERBOSE}
+
+test:
+  stage: test
+  script: echo "Running tests"
+
+build:
+  stage: build
+  script: echo "Building the app"
+
+deploy_development:
+  stage: deploy
+  script:
+    - echo "Deploy to development server"
+    - echo "$USER"
+    - echo "$PWD"
+  environment:
+    name: development
+    url: https://dev-staking-3rd-api.chainservices.info/
+  only:
+  - develop
+
+deploy_staging:
+  stage: deploy
+  script:
+    - echo "Deploy to staging server"
+  environment:
+    name: staging
+    url: https://staging-staking-3rd-api.chainservices.info/
+  only:
+  - master
+
+deploy_prod:
+  stage: deploy
+  script:
+    - echo "Deploy to production server"
+  environment:
+    name: production
+    url: https://example.com
+  when: manual
+  only:
+  - master
+
+
