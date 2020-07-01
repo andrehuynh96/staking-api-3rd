@@ -7,10 +7,6 @@ stages:
   - build
   - deploy
 
-verbose:
-  variables:
-    CI_DEBUG_TRACE: ${VERBOSE}
-
 test:
   stage: test
   script: echo "Running tests"
