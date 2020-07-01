@@ -26,7 +26,7 @@ deploy_development:
     url: https://dev-staking-3rd-api.chainservices.info/
   only:
   - develop
- tags:
+  tags:
   - infinito-staking-group
   
 deploy_staging:
