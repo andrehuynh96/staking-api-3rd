@@ -25,7 +25,8 @@ deploy_development:
     name: development
     url: https://dev-staking-3rd-api.chainservices.info/
   only:
-    - develop
+    refs:
+      - develop
   tags:
     - infinito-staking-group
   
