@@ -34,7 +34,7 @@ Test:
     - npm run test
 
   tags:
-    - dev-b2b-dev-b2b-staking-devops
+    - dev-b2b-dev-infinito-staking
 
 Development:
   stage: deploy
