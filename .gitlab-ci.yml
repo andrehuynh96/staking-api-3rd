@@ -26,7 +26,7 @@ Build:
 #       - package-lock.json
 
   tags:
-    - dev-b2b-dev-b2b-staking-devops
+    - dev-b2b-dev-infinito-staking
 
 # Test:
 #   stage: test
