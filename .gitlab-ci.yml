@@ -45,12 +45,11 @@ Development:
 #     name: development
 
   script:
+    - OLD_RELEASE_DIR=$(readlink -e "${DEPLOY_PATH}/current" || echo "NOT EXISTED")
     - NEW_RELEASE_DIR=${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}-$(date +%y%m%d%H%M%S)
     - sudo mkdir -p "${DEPLOY_PATH}/${NEW_RELEASE_DIR}"
     - sudo rsync -rav -e ssh --exclude='.git/' --exclude='.gitlab-ci.yml' --delete-excluded ./ ${DEPLOY_PATH}/${NEW_RELEASE_DIR} > /dev/null
-    - OLD_RELEASE_DIR=$(readlink -e "${DEPLOY_PATH}/current" || echo "NOT EXISTED")
-    - sudo su isysadmin -c "ln -sfrn ${DEPLOY_PATH}/${NEW_RELEASE_DIR} ${DEPLOY}/current"
-    - echo '$DOTENV' > ${DEPLOY_PATH}/current/.env
+    - echo '$DOTENV' > ${DEPLOY_PATH}/${NEW_RELEASE_DIR}/.env
     - >
       cat > ${DEPLOY_PATH}/ecosystem.config.js << EOF
       module.exports = {
@@ -63,8 +62,8 @@ Development:
         }]
       };
       EOF
-
     - sudo chown isysadmin:iblsystem -R ${DEPLOY_PATH}
+    - sudo su isysadmin -c "ln -sfrn ${DEPLOY_PATH}/${NEW_RELEASE_DIR} ${DEPLOY}/current"
     - sudo su isysadmin -c "pm2 startOrReload ${DEPLOY_PATH}/current/ecosystem.config.js --update-env"
     - sudo rm -rf "${OLD_RELEASE_DIR}"
 
