@@ -46,6 +46,7 @@ Development:
 
   script:
     - RELEASE_DIR=${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}-$(date +%y%m%d%H%M%S)
+    - sudo mkdir -p /home/isysadmin/${ENV}-${CI_PROJECT_NAME}/${RELEASE_DIR}
     - sudo rsync -rav -e ssh --exclude='.git/' --exclude='.gitlab-ci.yml' --delete-excluded ./ /home/isysadmin/${ENV}-${CI_PROJECT_NAME}/${RELEASE_DIR}
     - sudo chown isysadmin:iblsystem -R /home/isysadmin/${ENV}-${CI_PROJECT_NAME}
 
@@ -60,6 +61,4 @@ Development:
 
   tags:
     - dev-b2b-dev-infinito-staking
-
-
 
