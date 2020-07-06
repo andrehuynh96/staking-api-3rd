@@ -49,7 +49,7 @@ Development:
     - NEW_RELEASE_DIR=${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}-$(date +%y%m%d%H%M%S)
     - sudo mkdir -p "${DEPLOY_PATH}/${NEW_RELEASE_DIR}"
     - sudo rsync -rav -e ssh --exclude='.git/' --exclude='.gitlab-ci.yml' --delete-excluded ./ ${DEPLOY_PATH}/${NEW_RELEASE_DIR} > /dev/null
-    - sudo echo '$DOTENV' > ${DEPLOY_PATH}/${NEW_RELEASE_DIR}/.env
+    - sudo echo $DOTENV > ${DEPLOY_PATH}/${NEW_RELEASE_DIR}/.env
     - |
       cat > ecosystem.config.js << EOF
       module.exports = {
