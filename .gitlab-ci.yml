@@ -51,7 +51,7 @@ Development:
     - sudo rsync -rav -e ssh --exclude='.git/' --exclude='.gitlab-ci.yml' --delete-excluded ./ ${DEPLOY_PATH}/${NEW_RELEASE_DIR} > /dev/null
     - echo '$DOTENV' > ${DEPLOY_PATH}/${NEW_RELEASE_DIR}/.env
     - >
-      cat > ${DEPLOY_PATH}/ecosystem.config.js << EOF
+      cat > ecosystem.config.js << EOF
       module.exports = {
         apps : [{
           name: process.env.PM2_NAME || ${CI_PROJECT_NAME} ,
@@ -62,6 +62,7 @@ Development:
         }]
       };
       EOF
+    - sudo cp ecosystem.config.js ${DEPLOY_PATH}/
     - sudo chown isysadmin:iblsystem -R ${DEPLOY_PATH}
     - sudo su isysadmin -c "ln -sfrn ${DEPLOY_PATH}/${NEW_RELEASE_DIR} ${DEPLOY}/current"
     - sudo su isysadmin -c "pm2 startOrReload ${DEPLOY_PATH}/current/ecosystem.config.js --update-env"
