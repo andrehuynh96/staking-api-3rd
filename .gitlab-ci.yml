@@ -65,7 +65,7 @@ Development:
     - sudo cp ecosystem.config.js ${DEPLOY_PATH}/
     - sudo chown isysadmin:iblsystem -R ${DEPLOY_PATH}
     - sudo su isysadmin -c "ln -sfrn ${DEPLOY_PATH}/${NEW_RELEASE_DIR} ${DEPLOY_PATH}/current"
-    - sudo su isysadmin -c "pm2 startOrReload ${DEPLOY_PATH}/current/ecosystem.config.js --update-env"
+    - sudo su isysadmin -c "pm2 startOrReload ${DEPLOY_PATH}/ecosystem.config.js --update-env"
     - sudo rm -rf "${OLD_RELEASE_DIR}"
 
   tags:
