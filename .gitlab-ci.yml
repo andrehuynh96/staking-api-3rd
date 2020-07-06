@@ -41,8 +41,8 @@ Development:
   variables:
     ENV: "dev"
     # CI_DEBUG_TRACE: "true"
-  environment:
-    name: development
+#   environment:
+#     name: development
 
   script:
     - RELEASE_DIR=${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}-$(date +%y%m%d%H%M%S)
