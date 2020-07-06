@@ -13,13 +13,13 @@ cache:
   paths:
     - node_modules/
 
-Build:
-  stage: build
-  script:
-    - npm install > /dev/null
-  artifacts:
-    paths:
-      - node_modules/
+# Build:
+#   stage: build
+#   script:
+#     - npm install > /dev/null
+#   artifacts:
+#     paths:
+#       - node_modules/
 
 #   only:
 #     changes:
@@ -40,11 +40,11 @@ Development:
   stage: deploy
   variables:
     CI_DEBUG_TRACE: "true"
-    DEPLOY_PATH: "home/isysadmin/dev-${CI_PROJECT_NAME}"
 #   environment:
 #     name: development
 
   script:
+    - DEPLOY_PATH="home/isysadmin/dev-${CI_PROJECT_NAME}"
     - OLD_RELEASE_DIR=$(readlink -e "${DEPLOY_PATH}/current" || echo "NOT EXISTED")
     - NEW_RELEASE_DIR=${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}-$(date +%y%m%d%H%M%S)
     - sudo mkdir -p "${DEPLOY_PATH}/${NEW_RELEASE_DIR}"
@@ -65,7 +65,7 @@ Development:
     - sudo cp ecosystem.config.js ${DEPLOY_PATH}/
     - sudo chown isysadmin:iblsystem -R ${DEPLOY_PATH}
     - sudo su isysadmin -c "ln -sfrn ${DEPLOY_PATH}/${NEW_RELEASE_DIR} ${DEPLOY_PATH}/current"
-    - sudo su isysadmin -c "pm2 startOrReload ${DEPLOY_PATH}/current/ecosystem.config.js --update-env"
+    # - sudo su isysadmin -c "pm2 startOrReload ${DEPLOY_PATH}/current/ecosystem.config.js --update-env"
     - sudo rm -rf "${OLD_RELEASE_DIR}"
 
   tags:
