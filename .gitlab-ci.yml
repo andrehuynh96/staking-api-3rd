@@ -21,9 +21,9 @@ Build:
     paths:
       - node_modules/
 
-  only:
-    changes:
-      - package-lock.json
+#   only:
+#     changes:
+#       - package-lock.json
 
   tags:
     - dev-b2b-dev-infinito-staking
@@ -51,13 +51,13 @@ Development:
     - sudo chown isysadmin:iblsystem -R /home/isysadmin/${ENV}-${CI_PROJECT_NAME}
 
     - OLD_RELEASE_DIR=$(readlink -e "/home/isysadmin/${ENV}-${CI_PROJECT_NAME}/current" || echo "NOT EXISTED")
-    - sudo su isysadmin -c "ln -sf /home/isysadmin/${ENV}-${CI_PROJECT_NAME}/${RELEASE_DIR} /home/isysadmin/${ENV}-${CI_PROJECT_NAME}/current"
+    - sudo su isysadmin -c "ln -sfrn /home/isysadmin/${ENV}-${CI_PROJECT_NAME}/${RELEASE_DIR} /home/isysadmin/${ENV}-${CI_PROJECT_NAME}/current"
 
-    # - cd /home/isysadmin/${ENV}-${CI_PROJECT_NAME}/current
-    # - sudo su isysadmin -c "echo '$DOTENV' > .env"
-    # - sudo su isysadmin -c "PM2_NAME=$PM2_NAME PM2_INSTANCES=$PM2_INSTANCES PM2_EXEC_MODE=$PM2_EXEC_MODE pm2 start ecosystem.config.js --update-env"
+    - cd /home/isysadmin/${ENV}-${CI_PROJECT_NAME}/current
+    - sudo su isysadmin -c "echo '$DOTENV' > .env"
+    - sudo su isysadmin -c "PM2_NAME=$PM2_NAME PM2_INSTANCES=$PM2_INSTANCES PM2_EXEC_MODE=$PM2_EXEC_MODE pm2 start ecosystem.config.js --update-env"
     
-    # - sudo rm -rf "${OLD_RELEASE_DIR}"
+    - sudo rm -rf "${OLD_RELEASE_DIR}"
 
   tags:
     - dev-b2b-dev-infinito-staking
