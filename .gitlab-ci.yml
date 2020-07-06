@@ -40,11 +40,11 @@ Development:
   stage: deploy
   variables:
     CI_DEBUG_TRACE: "true"
+    DEPLOY_PATH: "/home/isysadmin/dev-${CI_PROJECT_NAME}"
 #   environment:
 #     name: development
 
   script:
-    - DEPLOY_PATH="home/isysadmin/dev-${CI_PROJECT_NAME}"
     - OLD_RELEASE_DIR=$(readlink -e "${DEPLOY_PATH}/current" || echo "NOT EXISTED")
     - NEW_RELEASE_DIR=${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}-$(date +%y%m%d%H%M%S)
     - sudo mkdir -p "${DEPLOY_PATH}/${NEW_RELEASE_DIR}"
