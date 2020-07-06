@@ -9,7 +9,7 @@ stages:
   - deploy
 
 cache:
-  key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+  key: $CI_COMMIT_SHORT_SHA
   paths:
     - node_modules/
 
