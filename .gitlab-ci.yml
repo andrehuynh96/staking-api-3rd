@@ -25,8 +25,8 @@ cache:
 #     changes:
 #       - package-lock.json
 
-  tags:
-    - dev-b2b-dev-infinito-staking
+#   tags:
+#     - dev-b2b-dev-infinito-staking
 
 Test:
   stage: test
