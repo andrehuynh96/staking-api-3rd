@@ -57,7 +57,7 @@ Development:
     - sudo su isysadmin -c "echo '$DOTENV' > .env"
     - sudo su isysadmin -c "PM2_NAME=$PM2_NAME PM2_INSTANCES=$PM2_INSTANCES PM2_EXEC_MODE=$PM2_EXEC_MODE pm2 start ecosystem.config.js --update-env"
     
-    - sudo rm -rf "${OLD_RELEASE_DIR}"
+    # - sudo rm -rf "${OLD_RELEASE_DIR}"
 
   tags:
     - dev-b2b-dev-infinito-staking
