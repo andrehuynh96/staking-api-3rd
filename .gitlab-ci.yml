@@ -50,7 +50,7 @@ Development:
     - sudo mkdir -p "${DEPLOY_PATH}/${NEW_RELEASE_DIR}"
     - sudo rsync -rav -e ssh --exclude='.git/' --exclude='.gitlab-ci.yml' --delete-excluded ./ ${DEPLOY_PATH}/${NEW_RELEASE_DIR} > /dev/null
     - sudo echo '$DOTENV' > ${DEPLOY_PATH}/${NEW_RELEASE_DIR}/.env
-    - >
+    - |
       cat > ecosystem.config.js << EOF
       module.exports = {
         apps : [{
