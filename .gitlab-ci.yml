@@ -54,11 +54,11 @@ Development:
       cat > ecosystem.config.js << EOF
       module.exports = {
         apps : [{
-          name: ${PM2_NAME} || ${CI_PROJECT_NAME} ,
+          name: "3004_${CI_PROJECT_NAME}"" ,
           script: 'index.js',
           cwd: '${DEPLOY_PATH}/current/',
-          instances: ${PM2_INSTANCES} || 1,
-          exec_mode: ${PM2_EXEC_MODE} || "fork_mode"
+          instances: 1,
+          exec_mode: "fork_mode"
         }]
       };
       EOF
