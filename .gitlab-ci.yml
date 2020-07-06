@@ -28,13 +28,13 @@ Build:
   tags:
     - dev-b2b-dev-b2b-staking-devops
 
-Test:
-  stage: test
-  script:
-    - npm run test
+# Test:
+#   stage: test
+#   script:
+#     - npm run test
 
-  tags:
-    - dev-b2b-dev-infinito-staking
+#   tags:
+#     - dev-b2b-dev-infinito-staking
 
 Development:
   stage: deploy
