@@ -9,21 +9,21 @@ stages:
   - deploy
 
 cache:
-  key: CI_COMMIT_REF_SLUG
+  key: "$CI_COMMIT_REF_SLUG"
   paths:
     - node_modules/
 
 Build:
   stage: build
   script:
-    - npm install
+    - npm install > /dev/null
   artifacts:
     paths:
       - node_modules/
 
-#   only:
-#     changes:
-#       - package-lock.json
+  only:
+    changes:
+      - package-lock.json
 
   tags:
     - dev-b2b-dev-infinito-staking
@@ -47,15 +47,15 @@ Development:
   script:
     - RELEASE_DIR=${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}-$(date +%y%m%d%H%M%S)
     - sudo mkdir -p /home/isysadmin/${ENV}-${CI_PROJECT_NAME}/${RELEASE_DIR}
-    - sudo rsync -rav -e ssh --exclude='.git/' --exclude='.gitlab-ci.yml' --delete-excluded ./ /home/isysadmin/${ENV}-${CI_PROJECT_NAME}/${RELEASE_DIR}
+    - sudo rsync -rav -e ssh --exclude='.git/' --exclude='.gitlab-ci.yml' --delete-excluded ./ /home/isysadmin/${ENV}-${CI_PROJECT_NAME}/${RELEASE_DIR} > /dev/null
     - sudo chown isysadmin:iblsystem -R /home/isysadmin/${ENV}-${CI_PROJECT_NAME}
 
     - OLD_RELEASE_DIR=$(readlink -e "/home/isysadmin/${ENV}-${CI_PROJECT_NAME}/current" || echo "NOT EXISTED")
     - sudo su isysadmin -c "ln -sf /home/isysadmin/${ENV}-${CI_PROJECT_NAME}/${RELEASE_DIR} /home/isysadmin/${ENV}-${CI_PROJECT_NAME}/current"
-    - sleep 3
-    - cd /home/isysadmin/${ENV}-${CI_PROJECT_NAME}/current
-    - sudo su isysadmin -c "echo '$DOTENV' > .env"
-    - sudo su isysadmin -c "PM2_NAME=$PM2_NAME PM2_INSTANCES=$PM2_INSTANCES PM2_EXEC_MODE=$PM2_EXEC_MODE pm2 start ecosystem.config.js --update-env"
+
+    # - cd /home/isysadmin/${ENV}-${CI_PROJECT_NAME}/current
+    # - sudo su isysadmin -c "echo '$DOTENV' > .env"
+    # - sudo su isysadmin -c "PM2_NAME=$PM2_NAME PM2_INSTANCES=$PM2_INSTANCES PM2_EXEC_MODE=$PM2_EXEC_MODE pm2 start ecosystem.config.js --update-env"
     
     # - sudo rm -rf "${OLD_RELEASE_DIR}"
 
