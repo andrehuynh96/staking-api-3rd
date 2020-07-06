@@ -40,7 +40,7 @@ Development:
   stage: deploy
   variables:
     ENV: "dev"
-    # CI_DEBUG_TRACE: "true"
+    CI_DEBUG_TRACE: "true"
 #   environment:
 #     name: development
 
