@@ -46,5 +46,19 @@ module.exports = {
       logger.error("voting fail:", err);
       return { httpCode: err.response.status, data: err.response.data };
     }
+  },
+  validator: async (token, plaform, validator_address) => {
+    try {
+      let result = await axios.get(`${config.stakingApi.url}/validator?platform=${plaform}&validator_address=${validator_address}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        }
+      });
+    return { httpCode: 200, data: result.data };
+    } catch (err) {
+      logger.error("get validator info fail:", err);
+      return { httpCode: err.response.status, data: err.response.data }
+    }
   }
 }
