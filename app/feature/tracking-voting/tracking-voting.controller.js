@@ -3,11 +3,7 @@ const StakingAPI = require("app/lib/staking-api")
 
 module.exports = async (req, res, next) => {
   try {
-    let token = req.headers["x-access-token"] || req.headers["authorization"];
-    if (token && (token.startsWith("Bearer ") || token.startsWith("bearer "))) {
-      token = token.slice(7, token.length);
-    }
-    let result = await StakingAPI.voting(token, {
+    let result = await StakingAPI.voting(req.token, {
       tx_id: req.body.tx_id,
       voter_address: req.body.voter_address,
       memo: req.body.memo,
