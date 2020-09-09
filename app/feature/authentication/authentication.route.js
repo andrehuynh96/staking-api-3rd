@@ -35,7 +35,11 @@ router.post("/authentication",
  *         examples:
  *           application/json:
  *             {
- *                 "data": "token"
+ *                 "data":{
+                      "access_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJiNThkZTJmNS02MDVkLTQ5NGMtYmI0Mi1iNjAyYmMxZWMwNWMiLCJ1c2VyX2lkIjoiN2ZhYmE3NmUtZDYwYS0xMWU5LTlkNmUtZjIzYzkxYTAzMTM5IiwidXNlcm5hbWUiOiJodXlodEBibG9ja2NoYWlubGFicy5hc2lhIiwiaWF0IjoxNTY4ODczMTU2LCJleHAiOjE1Njg5NTc3NTYsImF1ZCI6Imh0dHBzOi8vd3d3LmluZmluaXRvLmlvLyIsImlzcyI6ImluZmluaXRvIiwic3ViIjoiaW5mb0BpbmZpbml0by5pbyJ9.Zby6YAlKKK8xJLOFTsQjmQb8BPfduhWwqpil6rCZEiD3O3MQoFKPbK-71xBqdznd4R6ss0-nki4uGb5yLN6mKoMwS2Q2CqNKVsDY93zIUVrMAJ4pRFfGhsX0Pf-oVEZQTlu56J5eLfTsFJn8tTZfDM8KEn-9yBZNzCCSv1OoXdXNe8qkd5KeEoDxeak_OHCtv1CXdhhww3F7I2-zCUgIWVfnHBKeYzaclhFq-VZRZqwGzM1lFJ3JLNQsEs_U1Xj0r3H5_osxJE8uZmySkLcM5m9MgdWentxLwVUehLTuaWZZRf951AzW90ZA4Tvu3gzvD2yibHV3iSVe18S_mm3asA",
+                      "token_type":"Bearer",
+                      "expires_in":84599
+                    }
  *             }
  *       400:
  *         description: Error
