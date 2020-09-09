@@ -2,9 +2,12 @@ const express = require("express");
 const controller = require("./tracking-voting.controller");
 const requestSchema = require("./tracking-voting.request-schema");
 const validator = require("app/middleware/validator.middleware");
+const extractToken = require("app/middleware/extract-token.middleware");
+
 const route = express.Router();
 
 route.post("/voting",
+  extractToken,
   validator(requestSchema),
   controller
 )
