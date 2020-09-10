@@ -16,13 +16,14 @@ module.exports = {
           grant_type: "client_credentials"
         }
       );
-      return { httpCode: 200, data: result.data.data };
+      return { httpCode: 200, data: result.data };
     }
     catch (err) {
       logger.error("Authentication fail:", err);
       return { httpCode: err.response.status, data: err.response.data };
     }
   },
+
   voting: async (token, data) => {
     try {
       let result = await axios.post(`${config.stakingApi.url}/voting/3rd`, data, {
@@ -35,6 +36,22 @@ module.exports = {
     }
     catch (err) {
       logger.error("voting fail:", err);
+      return { httpCode: err.response.status, data: err.response.data };
+    }
+  },
+
+  getValidators: async (token, platform) => {
+    try {
+      let result = await axios.get(`${config.stakingApi.url}/validators-info/${platform}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        }
+      });
+      return { httpCode: 200, data: result.data };
+    }
+    catch (err) {
+      logger.error("getValidators fail:", err);
       return { httpCode: err.response.status, data: err.response.data };
     }
   }
