@@ -1,0 +1,72 @@
+variables:
+  GIT_STRATEGY: clone
+
+image: node:10-alpine
+
+stages:
+  - build
+  - test
+  - deploy
+
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - node_modules/
+
+Build:
+  stage: build
+  script:
+    - npm install > /dev/null
+  artifacts:
+    paths:
+      - node_modules/
+
+#   only:
+#     changes:
+#       - package-lock.json
+
+  tags:
+    - dev-b2b-dev-infinito-staking
+
+Test:
+  stage: test
+  script:
+    - echo "npm run test"
+
+  tags:
+    - dev-b2b-dev-infinito-staking
+
+Development:
+  stage: deploy
+  variables:
+    CI_DEBUG_TRACE: "true"
+    DEPLOY_PATH: "/home/isysadmin/dev-${CI_PROJECT_NAME}"
+#   environment:
+#     name: development
+
+  script:
+    - OLD_RELEASE_DIR=$(readlink -e "${DEPLOY_PATH}/current" || echo "NOT EXISTED")
+    - NEW_RELEASE_DIR=${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}-$(date +%y%m%d%H%M%S)
+    - sudo mkdir -p "${DEPLOY_PATH}/${NEW_RELEASE_DIR}"
+    - sudo rsync -rav -e ssh --exclude='.git/' --exclude='.gitlab-ci.yml' --delete-excluded ./ ${DEPLOY_PATH}/${NEW_RELEASE_DIR} > /dev/null
+    - sudo echo "$DOTENV" > ${DEPLOY_PATH}/${NEW_RELEASE_DIR}/.env
+    - |
+      cat > ecosystem.config.js << EOF
+      module.exports = {
+        apps : [{
+          name: "3004_${CI_PROJECT_NAME}" ,
+          script: 'index.js',
+          cwd: '${DEPLOY_PATH}/current/',
+          instances: 1,
+          exec_mode: "fork_mode"
+        }]
+      };
+      EOF
+    - sudo cp ecosystem.config.js ${DEPLOY_PATH}/
+    - sudo chown isysadmin:iblsystem -R ${DEPLOY_PATH}
+    - sudo su isysadmin -c "ln -sfrn ${DEPLOY_PATH}/${NEW_RELEASE_DIR} ${DEPLOY_PATH}/current"
+    - sudo su isysadmin -c "pm2 startOrReload ${DEPLOY_PATH}/ecosystem.config.js --update-env"
+    - sudo rm -rf "${OLD_RELEASE_DIR}"
+
+  tags:
+    - dev-b2b-dev-infinito-staking
