@@ -4,6 +4,7 @@ const logger = require("app/lib/logger")
 const redisResource = require("app/resource/redis");
 const redis = require("app/lib/redis");
 const cache = redis.client();
+const crypto = require('crypto');
 
 module.exports = {
   authentication: async (apiKey, secretKey) => {
@@ -14,6 +15,29 @@ module.exports = {
           api_key: apiKey,
           secret_key: secretKey,
           grant_type: "client_credentials"
+        }
+      );
+      return { httpCode: 200, data: result.data };
+    }
+    catch (err) {
+      logger.error("Authentication fail:", err);
+      return { httpCode: err.response.status, data: err.response.data };
+    }
+  },
+
+  authentication3rd: async (apiKey, secretKey, time, signature) => {
+    try {
+
+      let result = await axios.post(
+        `${config.stakingApi.url}/accounts/authentication-3rd`,
+        {
+          api_key: apiKey
+        },
+        {
+          headers: {
+            'x-time': time,
+            'x-signature': signature
+          }
         }
       );
       return { httpCode: 200, data: result.data };
