@@ -20,7 +20,7 @@ module.exports = {
       return { httpCode: 200, data: result.data };
     }
     catch (err) {
-      logger.error("Authentication fail:", err);
+      logger[err.canLogAxiosError ? 'error' : 'info']("Authentication fail:", err);
       return { httpCode: err.response.status, data: err.response.data };
     }
   },
@@ -43,7 +43,7 @@ module.exports = {
       return { httpCode: 200, data: result.data };
     }
     catch (err) {
-      logger.error("Authentication fail:", err);
+      logger[err.canLogAxiosError ? 'error' : 'info']("Authentication fail:", err);
       return { httpCode: err.response.status, data: err.response.data };
     }
   },
@@ -59,7 +59,7 @@ module.exports = {
       return { httpCode: 200, data: result.data };
     }
     catch (err) {
-      logger.error("voting fail:", err);
+      logger[err.canLogAxiosError ? 'error' : 'info']("voting fail:", err);
       return { httpCode: err.response.status, data: err.response.data };
     }
   },
@@ -75,7 +75,7 @@ module.exports = {
       return { httpCode: 200, data: result.data };
     }
     catch (err) {
-      logger.error("getValidators fail:", err);
+      logger[err.canLogAxiosError ? 'error' : 'info']("getValidators fail:", err);
       return { httpCode: err.response.status, data: err.response.data };
     }
   }

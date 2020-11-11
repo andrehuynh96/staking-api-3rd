@@ -1,6 +1,8 @@
-/*eslint no-process-env: "off"*/
+/* eslint no-process-env: "off"*/
 require('dotenv').config();
 const fs = require("fs");
+const pkg = require('../../package.json');
+
 const logFolder = process.env.LOG_FOLDER || './public/logs';
 
 const config = {
@@ -19,6 +21,13 @@ const config = {
       format: '.yyyy-MM-dd',
     },
     appenders: ['CONSOLE', 'FILE', 'ERROR_ONLY'],
+  },
+  app: {
+    name: process.env.APP_NAME || 'staking-api-3rd',
+    version: pkg.version,
+    description: pkg.description,
+    buildNumber: process.env.BUILD_NUMBER || process.env.CI_JOB_ID || '',
+    port: parseInt(process.env.PORT || process.env.APP_PORT),
   },
   redis: {
     host: process.env.REDIS_HOST,
